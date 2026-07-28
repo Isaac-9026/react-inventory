@@ -2,6 +2,7 @@ import './ProductRow.css'
 
 function ProductRow ({ product }) {
 
+    console.log("Renderizando ProductRow");
     return(
         <article className="product-row">
             <h3>{product.nombre}</h3>

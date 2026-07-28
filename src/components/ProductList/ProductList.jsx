@@ -3,7 +3,7 @@ import './ProductList.css'
 
 
 function ProductList({ products }){
-
+    console.log("Render ProductList")
     return(
         <div className="product-list">
         {products.map(product => (
