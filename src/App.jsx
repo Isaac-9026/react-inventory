@@ -3,6 +3,7 @@ import './App.css'
 import ProductList from './components/ProductList/ProductList'
 import products from './data/products'
 import SearchBar from './components/SearchBar/SearchBar'
+import ProductForm from './components/ProductForm/ProductForm'
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
         value={search}
         onChange={setSearch}
       />
+      <ProductForm/>
       <ProductList products = {filteredProducts}/>
     </main>
   )
