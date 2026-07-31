@@ -1,29 +1,59 @@
 import { useState } from "react";
+const INITIAL_FORM = {
+  nombre: "",
+  marca: "",
+  categoria: "",
+  modelo: "",
+  descripcion: "",
+  precio: "",
+  stock: "",
+};
 
-function ProductForm() {
-  const [formData, setFormData] = useState({
-    nombre: "",
-    marca: "",
-    categoria: "",
-    modelo: "",
-    descripcion: "",
-    precio: "",
-    stock: "",
-  });
+function ProductForm({ onAgregarProducto }) {
+  const [formData, setFormData] = useState(INITIAL_FORM);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    
+
     setFormData((prev) => ({
       ...prev,
       [id]: value,
     }));
   };
 
+  const validarFormulario = () => {
+    if (!formData.nombre.trim()) {
+      return "El nombre es obligatorio";
+    }
 
+    if (!formData.marca.trim()) {
+      return "La marca es obligatoria";
+    }
+
+    if (!formData.categoria) {
+      return "Seleccione una categoría";
+    }
+
+    if (!formData.precio || Number(formData.precio) <= 0) {
+      return "El precio debe ser mayor a 0";
+    }
+
+    if (!formData.stock || Number(formData.stock) < 0) {
+      return "El stock no puede ser negativo";
+    }
+
+    return null;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const error = validarFormulario();
+
+    if (error) {
+      alert(error);
+      return;
+    }
 
     const product = {
       ...formData,
@@ -31,9 +61,9 @@ function ProductForm() {
       stock: parseInt(formData.stock, 10),
     };
 
-    console.log(product);
+    onAgregarProducto(product);
+    setFormData(INITIAL_FORM);
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
