@@ -1,11 +1,17 @@
+import "./SearchBar.css"
+
 function SearchBar({ value, onChange }) {
   return (
-    <input
-      type="text"
-      placeholder="Buscar producto..."
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <div className="search-bar">
+      <label htmlFor="buscar">Buscar producto:</label>
+      <input
+        type="text"
+        id="buscar"
+        placeholder="Buscar producto..."
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
   );
 }
 

@@ -18,15 +18,19 @@ function App() {
     setProducts((prev) => [...prev, productWithId]);
   };
 
+  const eliminarProducto = (idProducto) => {
+    setProducts( (prev) => prev.filter((product) => product.id !== idProducto));
+  };
+
   const filteredProducts = products.filter((product) =>
     product.nombre.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
     <main className="container-TodoApp">
-      <SearchBar value={search} onChange={setSearch} />
       <ProductForm onAgregarProducto={agregarProducto} />
-      <ProductList products={filteredProducts} />
+      <SearchBar value={search} onChange={setSearch} />
+      <ProductList products={filteredProducts} onEliminarProducto={eliminarProducto} />
     </main>
   );
 }

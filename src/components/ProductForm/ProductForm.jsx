@@ -1,3 +1,5 @@
+import "./ProductForm.css"
+
 import { useState } from "react";
 const INITIAL_FORM = {
   nombre: "",
@@ -66,7 +68,7 @@ function ProductForm({ onAgregarProducto }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form  className="product-form" onSubmit={handleSubmit}>
       <h3>Registrar Nuevo Producto</h3>
       <label htmlFor="nombre">Nombre</label>
       <input

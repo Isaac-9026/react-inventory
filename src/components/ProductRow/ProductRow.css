@@ -14,3 +14,9 @@
   margin: 0.3rem 0;
 }
 
+.trash-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 1rem;
+  cursor: pointer;
+}
