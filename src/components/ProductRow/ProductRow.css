@@ -14,7 +14,7 @@
   margin: 0.3rem 0;
 }
 
-.trash-icon {
+.trash-icon, .pencil-icon {
   width: 20px;
   height: 20px;
   margin-left: 1rem;

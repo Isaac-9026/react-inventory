@@ -1,6 +1,6 @@
-import "./ProductForm.css"
+import "./ProductForm.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const INITIAL_FORM = {
   nombre: "",
   marca: "",
@@ -11,7 +11,7 @@ const INITIAL_FORM = {
   stock: "",
 };
 
-function ProductForm({ onAgregarProducto }) {
+function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
   const [formData, setFormData] = useState(INITIAL_FORM);
 
   const handleChange = (e) => {
@@ -47,6 +47,14 @@ function ProductForm({ onAgregarProducto }) {
     return null;
   };
 
+  useEffect(() => {
+    if (productEdicion) {
+      setFormData(productEdicion);
+    } else {
+      setFormData(INITIAL_FORM);
+    }
+  }, [productEdicion]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -63,13 +71,16 @@ function ProductForm({ onAgregarProducto }) {
       stock: parseInt(formData.stock, 10),
     };
 
-    onAgregarProducto(product);
-    setFormData(INITIAL_FORM);
+    if (productEdicion) {
+      onEditarProducto(product);
+    } else {
+      onAgregarProducto(product);
+    }
   };
 
   return (
-    <form  className="product-form" onSubmit={handleSubmit}>
-      <h3>Registrar Nuevo Producto</h3>
+    <form className="product-form" onSubmit={handleSubmit}>
+      <h3>{productEdicion ? "Editar Producto" : "Registrar Nuevo Producto"}</h3>
       <label htmlFor="nombre">Nombre</label>
       <input
         id="nombre"
@@ -131,7 +142,7 @@ function ProductForm({ onAgregarProducto }) {
         value={formData.stock}
         onChange={handleChange}
       />
-      <button type="submit">Guardar</button>
+      <button type="submit">{productEdicion ? "Actualizar" : "Guardar"}</button>
     </form>
   );
 }

@@ -1,7 +1,8 @@
 import "./ProductRow.css";
 import { Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 
-function ProductRow({ product, onEliminarProducto }) {
+function ProductRow({ product, onEliminarProducto , onEditarProducto}) {
 
   return (
     <article className="product-row">
@@ -15,6 +16,7 @@ function ProductRow({ product, onEliminarProducto }) {
         <p>Stock: {product.stock}</p>
       </div>
       <Trash2 className="trash-icon" onClick={() => onEliminarProducto(product.id)} size={20} />
+        <Pencil className="pencil-icon" onClick={()=> onEditarProducto(product)}  size={20}/>
     </article>  
   );
 }

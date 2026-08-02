@@ -8,6 +8,7 @@ import productsData from "./data/products";
 function App() {
   const [products, setProducts] = useState(productsData);
   const [search, setSearch] = useState("");
+  const [productoEnEdicion, setProductoEnEdicion] = useState(null);
 
   const agregarProducto = (nuevoProducto) => {
     const productWithId = {
@@ -19,7 +20,20 @@ function App() {
   };
 
   const eliminarProducto = (idProducto) => {
-    setProducts( (prev) => prev.filter((product) => product.id !== idProducto));
+    setProducts((prev) => prev.filter((product) => product.id !== idProducto));
+  };
+
+  const editarProducto = (producto) => {
+    setProductoEnEdicion(producto);
+  };
+
+  const actualizarProducto = (productoActualizado) => {
+    setProducts((prev) =>
+      prev.map((producto) =>
+        producto.id === productoActualizado.id ? productoActualizado : producto,
+      ),
+    );
+    setProductoEnEdicion(null);
   };
 
   const filteredProducts = products.filter((product) =>
@@ -28,9 +42,17 @@ function App() {
 
   return (
     <main className="container-TodoApp">
-      <ProductForm onAgregarProducto={agregarProducto} />
+      <ProductForm
+        onAgregarProducto={agregarProducto}
+        productEdicion={productoEnEdicion}
+        onEditarProducto={actualizarProducto}
+      />
       <SearchBar value={search} onChange={setSearch} />
-      <ProductList products={filteredProducts} onEliminarProducto={eliminarProducto} />
+      <ProductList
+        products={filteredProducts}
+        onEliminarProducto={eliminarProducto}
+        onEditarProducto={editarProducto}
+      />
     </main>
   );
 }
