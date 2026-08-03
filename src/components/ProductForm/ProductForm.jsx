@@ -76,6 +76,8 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
     } else {
       onAgregarProducto(product);
     }
+
+    setFormData(INITIAL_FORM)
   };
 
   return (
