@@ -2,12 +2,12 @@ import ProductRow from '../ProductRow/ProductRow'
 import './ProductList.css'
 
 
-function ProductList({ products, onEliminarProducto, onEditarProducto }){
+function ProductList({ products, onSolicitarEliminar, onEditarProducto }){
     
     return(
         <div className="product-list">
         {products.map(product => (
-            <ProductRow key= {product.id} product = {product} onEliminarProducto= {onEliminarProducto} onEditarProducto={onEditarProducto}/>
+            <ProductRow key= {product.id} product = {product} onSolicitarEliminar= {onSolicitarEliminar} onEditarProducto={onEditarProducto}/>
         ))}
         </div>
     )

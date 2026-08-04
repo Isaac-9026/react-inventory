@@ -77,7 +77,7 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
       onAgregarProducto(product);
     }
 
-    setFormData(INITIAL_FORM)
+    setFormData(INITIAL_FORM);
   };
 
   return (
