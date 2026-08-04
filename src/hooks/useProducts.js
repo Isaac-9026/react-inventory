@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import productsData from "../data/products";
+import { obtenerProductos, guardarProductos } from "../services/productStorage";
 
 function useProducts() {
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
 
-  const [products, setProducts] = useState(() => {
-    const productosGuardados = localStorage.getItem("products");
-
-    return productosGuardados ? JSON.parse(productosGuardados) : productsData;
-  });
+  const [products, setProducts] = useState(obtenerProductos);
 
   useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
+    guardarProductos(products);
   }, [products]);
 
   const agregarProducto = (nuevoProducto) => {
