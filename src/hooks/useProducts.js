@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import productsData from "../data/products";
 import { obtenerProductos, guardarProductos } from "../services/productStorage";
+import { toast } from "sonner";
 
 function useProducts() {
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
@@ -18,10 +19,12 @@ function useProducts() {
     };
 
     setProducts((prev) => [...prev, productWithId]);
+    toast.success("Producto registrado correctamente");
   };
 
   const eliminarProducto = (idProducto) => {
     setProducts((prev) => prev.filter((product) => product.id !== idProducto));
+    toast.success("Producto eliminado correctamente");
   };
 
   const editarProducto = (producto) => {
@@ -35,6 +38,7 @@ function useProducts() {
       ),
     );
     setProductoEnEdicion(null);
+    toast.success("Producto actualizado correctamente");
   };
 
   return {

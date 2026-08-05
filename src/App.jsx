@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Toaster } from "sonner";
 import "./App.css";
 import ProductList from "./components/ProductList/ProductList";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -48,6 +49,7 @@ function App() {
         onCancel={() => setProductoAEliminar(null)}
         onConfirm={confirmarEliminacion}
       />
+      <Toaster position="top-right" richColors closeButton />
     </main>
   );
 }

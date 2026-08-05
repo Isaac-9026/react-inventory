@@ -1,4 +1,5 @@
 import "./ProductForm.css";
+import { toast } from "sonner";
 
 import { useEffect, useState } from "react";
 const INITIAL_FORM = {
@@ -61,7 +62,7 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
     const error = validarFormulario();
 
     if (error) {
-      alert(error);
+      toast.error(error);
       return;
     }
 
