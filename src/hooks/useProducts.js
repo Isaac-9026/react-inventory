@@ -1,44 +1,76 @@
 import { useState, useEffect } from "react";
-import productsData from "../data/products";
-import { obtenerProductos, guardarProductos } from "../services/productStorage";
+import productService from "../services/productService";
 import { toast } from "sonner";
 
 function useProducts() {
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
 
-  const [products, setProducts] = useState(obtenerProductos);
+  const [products, setProducts] = useState([]);
+
+  const agregarProducto = async (nuevoProducto) => {
+    try {
+      const productoCreado = await productService.createProduct(nuevoProducto);
+
+      setProducts((prev) => [...prev, productoCreado]);
+
+      toast.success("Producto registrado correctamente");
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudo registrar el producto");
+    }
+  };
+
+  const cargarProductos = async () => {
+    try {
+      const productos = await productService.getProducts();
+
+      setProducts(productos);
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudieron cargar los productos");
+    }
+  };
+
+  const eliminarProducto = async (idProducto) => {
+    try {
+      await productService.deleteProduct(idProducto);
+
+      setProducts((prev) =>
+        prev.filter((producto) => producto.id !== idProducto),
+      );
+
+      toast.success("Producto eliminado correctamente");
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudo eliminar el producto");
+    }
+  };
 
   useEffect(() => {
-    guardarProductos(products);
-  }, [products]);
-
-  const agregarProducto = (nuevoProducto) => {
-    const productWithId = {
-      id: crypto.randomUUID(),
-      ...nuevoProducto,
-    };
-
-    setProducts((prev) => [...prev, productWithId]);
-    toast.success("Producto registrado correctamente");
-  };
-
-  const eliminarProducto = (idProducto) => {
-    setProducts((prev) => prev.filter((product) => product.id !== idProducto));
-    toast.success("Producto eliminado correctamente");
-  };
+    cargarProductos();
+  }, []);
 
   const editarProducto = (producto) => {
     setProductoEnEdicion(producto);
   };
 
-  const actualizarProducto = (productoActualizado) => {
-    setProducts((prev) =>
-      prev.map((producto) =>
-        producto.id === productoActualizado.id ? productoActualizado : producto,
-      ),
-    );
-    setProductoEnEdicion(null);
-    toast.success("Producto actualizado correctamente");
+  const actualizarProducto = async (producto) => {
+    try {
+      const productoActualizado = await productService.updateProduct(producto);
+
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === productoActualizado.id ? productoActualizado : p,
+        ),
+      );
+
+      setProductoEnEdicion(null);
+
+      toast.success("Producto actualizado correctamente");
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudo actualizar el producto");
+    }
   };
 
   return {
