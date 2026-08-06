@@ -4,10 +4,11 @@ import { toast } from "sonner";
 
 function useProducts() {
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
   const agregarProducto = async (nuevoProducto) => {
+    setIsLoading(true);
     try {
       const productoCreado = await productService.createProduct(nuevoProducto);
 
@@ -17,10 +18,13 @@ function useProducts() {
     } catch (error) {
       console.error(error);
       toast.error("No se pudo registrar el producto");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const cargarProductos = async () => {
+    setIsLoading(true);
     try {
       const productos = await productService.getProducts();
 
@@ -28,6 +32,8 @@ function useProducts() {
     } catch (error) {
       console.error(error);
       toast.error("No se pudieron cargar los productos");
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -55,6 +61,7 @@ function useProducts() {
   };
 
   const actualizarProducto = async (producto) => {
+    setIsLoading(true);
     try {
       const productoActualizado = await productService.updateProduct(producto);
 
@@ -70,6 +77,8 @@ function useProducts() {
     } catch (error) {
       console.error(error);
       toast.error("No se pudo actualizar el producto");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,6 +89,7 @@ function useProducts() {
     eliminarProducto,
     editarProducto,
     actualizarProducto,
+    isLoading,
   };
 }
 

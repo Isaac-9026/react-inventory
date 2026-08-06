@@ -15,6 +15,7 @@ function App() {
     eliminarProducto,
     editarProducto,
     actualizarProducto,
+    isLoading,
   } = useProducts();
 
   const [search, setSearch] = useState("");
@@ -35,6 +36,7 @@ function App() {
         onAgregarProducto={agregarProducto}
         productEdicion={productoEnEdicion}
         onEditarProducto={actualizarProducto}
+        isLoading={isLoading}
       />
       <SearchBar value={search} onChange={setSearch} />
       <ProductList

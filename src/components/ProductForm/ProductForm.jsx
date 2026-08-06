@@ -12,7 +12,12 @@ const INITIAL_FORM = {
   stock: "",
 };
 
-function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
+function ProductForm({
+  onAgregarProducto,
+  productEdicion,
+  onEditarProducto,
+  isLoading,
+}) {
   const [formData, setFormData] = useState(INITIAL_FORM);
 
   const handleChange = (e) => {
@@ -56,7 +61,7 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
     }
   }, [productEdicion]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const error = validarFormulario();
@@ -73,9 +78,9 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
     };
 
     if (productEdicion) {
-      onEditarProducto(product);
+      await onEditarProducto(product);
     } else {
-      onAgregarProducto(product);
+      await onAgregarProducto(product);
     }
 
     setFormData(INITIAL_FORM);
@@ -145,7 +150,9 @@ function ProductForm({ onAgregarProducto, productEdicion, onEditarProducto }) {
         value={formData.stock}
         onChange={handleChange}
       />
-      <button type="submit">{productEdicion ? "Actualizar" : "Guardar"}</button>
+      <button disabled={isLoading}>
+        {isLoading ? "Guardando..." : productEdicion ? "Actualizar" : "Guardar"}
+      </button>
     </form>
   );
 }
