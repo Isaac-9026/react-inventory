@@ -9,6 +9,7 @@ function useProducts() {
 
   const agregarProducto = async (nuevoProducto) => {
     setIsLoading(true);
+
     try {
       const productoCreado = await productService.createProduct(nuevoProducto);
 
@@ -25,6 +26,7 @@ function useProducts() {
 
   const cargarProductos = async () => {
     setIsLoading(true);
+
     try {
       const productos = await productService.getProducts();
 
@@ -33,11 +35,13 @@ function useProducts() {
       console.error(error);
       toast.error("No se pudieron cargar los productos");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   const eliminarProducto = async (idProducto) => {
+    setIsLoading(true);
+
     try {
       await productService.deleteProduct(idProducto);
 
@@ -49,6 +53,8 @@ function useProducts() {
     } catch (error) {
       console.error(error);
       toast.error("No se pudo eliminar el producto");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,6 +68,7 @@ function useProducts() {
 
   const actualizarProducto = async (producto) => {
     setIsLoading(true);
+
     try {
       const productoActualizado = await productService.updateProduct(producto);
 
@@ -85,11 +92,11 @@ function useProducts() {
   return {
     products,
     productoEnEdicion,
+    isLoading,
     agregarProducto,
     eliminarProducto,
     editarProducto,
     actualizarProducto,
-    isLoading,
   };
 }
 

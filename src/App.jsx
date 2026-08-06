@@ -43,6 +43,7 @@ function App() {
         products={filteredProducts}
         onSolicitarEliminar={setProductoAEliminar}
         onEditarProducto={editarProducto}
+        isLoading={isLoading}
       />
       <ConfirmDialog
         open={productoAEliminar !== null}
