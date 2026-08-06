@@ -1,7 +1,8 @@
 import "./ProductForm.css";
 import { toast } from "sonner";
-
 import { useEffect, useState } from "react";
+import { validarProducto } from "../../utils/productValidation";
+
 const INITIAL_FORM = {
   nombre: "",
   marca: "",
@@ -29,30 +30,6 @@ function ProductForm({
     }));
   };
 
-  const validarFormulario = () => {
-    if (!formData.nombre.trim()) {
-      return "El nombre es obligatorio";
-    }
-
-    if (!formData.marca.trim()) {
-      return "La marca es obligatoria";
-    }
-
-    if (!formData.categoria) {
-      return "Seleccione una categoría";
-    }
-
-    if (!formData.precio || Number(formData.precio) <= 0) {
-      return "El precio debe ser mayor a 0";
-    }
-
-    if (!formData.stock || Number(formData.stock) < 0) {
-      return "El stock no puede ser negativo";
-    }
-
-    return null;
-  };
-
   useEffect(() => {
     if (productEdicion) {
       setFormData(productEdicion);
@@ -64,7 +41,7 @@ function ProductForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const error = validarFormulario();
+    const error = validarProducto(formData);
 
     if (error) {
       toast.error(error);
@@ -89,6 +66,7 @@ function ProductForm({
   return (
     <form className="product-form" onSubmit={handleSubmit}>
       <h3>{productEdicion ? "Editar Producto" : "Registrar Nuevo Producto"}</h3>
+
       <label htmlFor="nombre">Nombre</label>
       <input
         id="nombre"
@@ -107,7 +85,7 @@ function ProductForm({
         onChange={handleChange}
       />
 
-      <label htmlFor="categoria">Categoria</label>
+      <label htmlFor="categoria">Categoría</label>
       <select id="categoria" value={formData.categoria} onChange={handleChange}>
         <option value="">Seleccione una categoría</option>
         <option value="laptop">Laptop</option>
@@ -150,7 +128,8 @@ function ProductForm({
         value={formData.stock}
         onChange={handleChange}
       />
-      <button disabled={isLoading}>
+
+      <button disabled={isLoading} type="submit">
         {isLoading ? "Guardando..." : productEdicion ? "Actualizar" : "Guardar"}
       </button>
     </form>
