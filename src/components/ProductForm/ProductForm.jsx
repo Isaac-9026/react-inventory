@@ -2,6 +2,7 @@ import "./ProductForm.css";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { validarProducto } from "../../utils/productValidation";
+import { mapProductToDatabase } from "../../utils/productMapper";
 
 const INITIAL_FORM = {
   nombre: "",
@@ -48,11 +49,7 @@ function ProductForm({
       return;
     }
 
-    const product = {
-      ...formData,
-      precio: parseFloat(formData.precio),
-      stock: parseInt(formData.stock, 10),
-    };
+    const product = mapProductToDatabase(formData);
 
     if (productEdicion) {
       await onEditarProducto(product);
