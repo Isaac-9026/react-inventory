@@ -1,4 +1,5 @@
 import ProductRow from "../ProductRow/ProductRow";
+import Loader from "../Loader/Loader";
 import "./ProductList.css";
 
 function ProductList({
@@ -8,7 +9,7 @@ function ProductList({
   isLoading,
 }) {
   if (isLoading) {
-    return <p>Cargando productos...</p>;
+    return <Loader message="Cargando productos..." />;
   }
 
   if (products.length === 0) {
