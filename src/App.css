@@ -1,5 +1,21 @@
-main {
-  max-width: 900px;
+.container-TodoApp {
+  width: min(100% - 2rem, 1100px);
+
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2.5rem 0 4rem;
+}
+
+.container-TodoApp > * {
+  margin-bottom: 1.5rem;
+}
+
+.container-TodoApp > *:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .container-TodoApp {
+    width: min(100% - 1rem, 1100px);
+    padding: 1.5rem 0 3rem;
+  }
 }
