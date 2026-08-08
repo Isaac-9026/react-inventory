@@ -23,6 +23,7 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [productoAEliminar, setProductoAEliminar] = useState(null);
+  const searchTerm = search.toLowerCase().trim();
 
   const isSaving = loadingAction === "saving";
   const isDeleting = loadingAction === "deleting";
@@ -33,10 +34,19 @@ function App() {
     }
   }, [error, notifyError]);
 
-  const filteredProducts = products.filter((product) =>
-    product.nombre.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredProducts = products.filter((product) => {
+    const searchableText = [
+      product.nombre,
+      product.marca,
+      product.categoria,
+      product.modelo,
+    ]
+      .join(" ")
+      .toLowerCase();
 
+    return searchableText.includes(searchTerm);
+  });
+  
   const solicitarEliminar = (idProducto) => {
     const producto = products.find((product) => product.id === idProducto);
 
