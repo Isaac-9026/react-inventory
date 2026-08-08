@@ -1,46 +1,50 @@
 import { useState, useEffect } from "react";
 import productService from "../services/productService";
-import { toast } from "sonner";
 
 function useProducts() {
   const [productoEnEdicion, setProductoEnEdicion] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingAction, setLoadingAction] = useState("loading");
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
 
   const agregarProducto = async (nuevoProducto) => {
-    setIsLoading(true);
+    setLoadingAction("saving");
 
     try {
       const productoCreado = await productService.createProduct(nuevoProducto);
 
       setProducts((prev) => [...prev, productoCreado]);
 
-      toast.success("Producto registrado correctamente");
+      return productoCreado;
     } catch (error) {
       console.error(error);
-      toast.error("No se pudo registrar el producto");
+      throw error;
     } finally {
-      setIsLoading(false);
+      setLoadingAction(null);
     }
   };
 
   const cargarProductos = async () => {
-    setIsLoading(true);
+    setLoadingAction("loading");
+    setError(null);
 
     try {
       const productos = await productService.getProducts();
 
       setProducts(productos);
+
+      return productos;
     } catch (error) {
       console.error(error);
-      toast.error("No se pudieron cargar los productos");
+      setError(error);
+      throw error;
     } finally {
-      setIsLoading(false);
+      setLoadingAction(null);
     }
   };
 
   const eliminarProducto = async (idProducto) => {
-    setIsLoading(true);
+    setLoadingAction("deleting");
 
     try {
       await productService.deleteProduct(idProducto);
@@ -48,18 +52,16 @@ function useProducts() {
       setProducts((prev) =>
         prev.filter((producto) => producto.id !== idProducto),
       );
-
-      toast.success("Producto eliminado correctamente");
     } catch (error) {
       console.error(error);
-      toast.error("No se pudo eliminar el producto");
+      throw error;
     } finally {
-      setIsLoading(false);
+      setLoadingAction(null);
     }
   };
 
   useEffect(() => {
-    cargarProductos();
+    cargarProductos().catch(() => {});
   }, []);
 
   const editarProducto = (producto) => {
@@ -67,7 +69,7 @@ function useProducts() {
   };
 
   const actualizarProducto = async (producto) => {
-    setIsLoading(true);
+    setLoadingAction("saving");
 
     try {
       const productoActualizado = await productService.updateProduct(producto);
@@ -80,19 +82,20 @@ function useProducts() {
 
       setProductoEnEdicion(null);
 
-      toast.success("Producto actualizado correctamente");
+      return productoActualizado;
     } catch (error) {
       console.error(error);
-      toast.error("No se pudo actualizar el producto");
+      throw error;
     } finally {
-      setIsLoading(false);
+      setLoadingAction(null);
     }
   };
 
   return {
     products,
     productoEnEdicion,
-    isLoading,
+    loadingAction,
+    error,
     agregarProducto,
     eliminarProducto,
     editarProducto,

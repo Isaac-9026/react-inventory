@@ -1,8 +1,8 @@
 import "./ProductForm.css";
-import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { validarProducto } from "../../utils/productValidation";
 import { mapProductToDatabase } from "../../utils/productMapper";
+import useNotification from "../../hooks/useNotification";
 
 const INITIAL_FORM = {
   nombre: "",
@@ -18,9 +18,11 @@ function ProductForm({
   onAgregarProducto,
   productEdicion,
   onEditarProducto,
-  isLoading,
+  isSaving,
 }) {
   const [formData, setFormData] = useState(INITIAL_FORM);
+
+  const { success, error: notifyError } = useNotification();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -42,22 +44,29 @@ function ProductForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const error = validarProducto(formData);
+    const validationError = validarProducto(formData);
 
-    if (error) {
-      toast.error(error);
+    if (validationError) {
+      notifyError(validationError);
       return;
     }
 
     const product = mapProductToDatabase(formData);
 
-    if (productEdicion) {
-      await onEditarProducto(product);
-    } else {
-      await onAgregarProducto(product);
-    }
+    try {
+      if (productEdicion) {
+        await onEditarProducto(product);
+        success("Producto actualizado correctamente");
+      } else {
+        await onAgregarProducto(product);
+        success("Producto registrado correctamente");
+      }
 
-    setFormData(INITIAL_FORM);
+      setFormData(INITIAL_FORM);
+    } catch (error) {
+      console.error(error);
+      notifyError("No se pudo guardar el producto");
+    }
   };
 
   return (
@@ -126,8 +135,8 @@ function ProductForm({
         onChange={handleChange}
       />
 
-      <button disabled={isLoading} type="submit">
-        {isLoading ? "Guardando..." : productEdicion ? "Actualizar" : "Guardar"}
+      <button disabled={isSaving} type="submit">
+        {isSaving ? "Guardando..." : productEdicion ? "Actualizar" : "Guardar"}
       </button>
     </form>
   );

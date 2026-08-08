@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Toaster } from "sonner";
+import { useEffect, useState } from "react";
 import "./App.css";
 import ProductList from "./components/ProductList/ProductList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ProductForm from "./components/ProductForm/ProductForm";
 import useProducts from "./hooks/useProducts";
+import useNotification from "./hooks/useNotification";
 import ConfirmDialog from "./components/ConfirmDialog/ConfirmDialog";
 
 function App() {
@@ -15,19 +15,47 @@ function App() {
     eliminarProducto,
     editarProducto,
     actualizarProducto,
-    isLoading,
+    loadingAction,
+    error,
   } = useProducts();
+
+  const { success, error: notifyError } = useNotification();
 
   const [search, setSearch] = useState("");
   const [productoAEliminar, setProductoAEliminar] = useState(null);
+
+  const isSaving = loadingAction === "saving";
+  const isDeleting = loadingAction === "deleting";
+
+  useEffect(() => {
+    if (error) {
+      notifyError("No se pudieron cargar los productos");
+    }
+  }, [error, notifyError]);
 
   const filteredProducts = products.filter((product) =>
     product.nombre.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const confirmarEliminacion = () => {
-    eliminarProducto(productoAEliminar.id);
-    setProductoAEliminar(null);
+  const solicitarEliminar = (idProducto) => {
+    const producto = products.find((product) => product.id === idProducto);
+
+    setProductoAEliminar(producto);
+  };
+
+  const confirmarEliminacion = async () => {
+    if (!productoAEliminar) return;
+
+    try {
+      await eliminarProducto(productoAEliminar.id);
+
+      success("Producto eliminado correctamente");
+
+      setProductoAEliminar(null);
+    } catch (error) {
+      console.error(error);
+      notifyError("No se pudo eliminar el producto");
+    }
   };
 
   return (
@@ -36,23 +64,24 @@ function App() {
         onAgregarProducto={agregarProducto}
         productEdicion={productoEnEdicion}
         onEditarProducto={actualizarProducto}
-        isLoading={isLoading}
+        isSaving={isSaving}
       />
+
       <SearchBar value={search} onChange={setSearch} />
+
       <ProductList
         products={filteredProducts}
-        onSolicitarEliminar={setProductoAEliminar}
+        onSolicitarEliminar={solicitarEliminar}
         onEditarProducto={editarProducto}
-        isLoading={isLoading}
       />
+
       <ConfirmDialog
         open={productoAEliminar !== null}
-        title="Eliminar producto"
-        message={`¿Está seguro de eliminar "${productoAEliminar?.nombre}"?`}
+        product={productoAEliminar}
+        isDeleting={isDeleting}
         onCancel={() => setProductoAEliminar(null)}
         onConfirm={confirmarEliminacion}
       />
-      <Toaster position="top-right" richColors closeButton />
     </main>
   );
 }

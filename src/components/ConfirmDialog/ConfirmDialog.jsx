@@ -1,36 +1,28 @@
 import "./ConfirmDialog.css";
-import { useEffect } from "react";
 
-function ConfirmDialog({ open, title, message, onConfirm, onCancel }) {
-  useEffect(() => {
-    if (!open) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        onCancel();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open, onCancel]);
-
-  if (!open) return null;
+function ConfirmDialog({ open, product, isDeleting, onCancel, onConfirm }) {
+  if (!open || !product) {
+    return null;
+  }
 
   return (
-    <div className="dialog-overlay" onClick={onCancel}>
-      <div className="dialog" onClick={(e) => e.stopPropagation()}>
-        <h2>{title}</h2>
+    <div className="confirm-dialog-overlay">
+      <div className="confirm-dialog">
+        <h3>Eliminar producto</h3>
 
-        <p>{message}</p>
+        <p>
+          ¿Estás seguro de que deseas eliminar <strong>{product.nombre}</strong>
+          ?
+        </p>
 
-        <div className="dialog-actions">
-          <button onClick={onCancel}>Cancelar</button>
+        <div className="confirm-dialog-actions">
+          <button type="button" onClick={onCancel} disabled={isDeleting}>
+            Cancelar
+          </button>
 
-          <button onClick={onConfirm}>Eliminar</button>
+          <button type="button" onClick={onConfirm} disabled={isDeleting}>
+            {isDeleting ? "Eliminando..." : "Eliminar"}
+          </button>
         </div>
       </div>
     </div>

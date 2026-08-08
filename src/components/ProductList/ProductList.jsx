@@ -1,23 +1,9 @@
 import ProductRow from "../ProductRow/ProductRow";
-import Loader from "../Loader/Loader";
 import "./ProductList.css";
 
-function ProductList({
-  products,
-  onSolicitarEliminar,
-  onEditarProducto,
-  isLoading,
-}) {
-  if (isLoading) {
-    return <Loader message="Cargando productos..." />;
-  }
-
-  if (products.length === 0) {
-    return <p>No hay productos registrados</p>;
-  }
-
+function ProductList({ products, onSolicitarEliminar, onEditarProducto }) {
   return (
-    <div className="product-list">
+    <section className="product-list">
       {products.map((product) => (
         <ProductRow
           key={product.id}
@@ -26,7 +12,7 @@ function ProductList({
           onEditarProducto={onEditarProducto}
         />
       ))}
-    </div>
+    </section>
   );
 }
 

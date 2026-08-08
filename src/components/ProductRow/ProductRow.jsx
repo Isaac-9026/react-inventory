@@ -1,13 +1,11 @@
 import "./ProductRow.css";
-import { Trash2 } from "lucide-react";
-import { Pencil } from "lucide-react";
+import { Trash2, Pencil } from "lucide-react";
 
-function ProductRow({ product, onSolicitarEliminar , onEditarProducto}) {
-
+function ProductRow({ product, onSolicitarEliminar, onEditarProducto }) {
   return (
     <article className="product-row">
       <div className="product-info">
-        <h3>{product.nombre}</h3> 
+        <h3>{product.nombre}</h3>
         <p>Categoria: {product.categoria}</p>
         <p>Marca: {product.marca}</p>
         <p>Modelo: {product.modelo}</p>
@@ -15,9 +13,19 @@ function ProductRow({ product, onSolicitarEliminar , onEditarProducto}) {
         <p>Precio: {product.precio}</p>
         <p>Stock: {product.stock}</p>
       </div>
-      <Trash2 className="trash-icon" onClick={() => onSolicitarEliminar(product)} size={20} />
-        <Pencil className="pencil-icon" onClick={()=> onEditarProducto(product)}  size={20}/>
-    </article>  
+
+      <Trash2
+        className="trash-icon"
+        onClick={() => onSolicitarEliminar(product.id)}
+        size={20}
+      />
+
+      <Pencil
+        className="pencil-icon"
+        onClick={() => onEditarProducto(product)}
+        size={20}
+      />
+    </article>
   );
 }
 
