@@ -6,25 +6,39 @@ function ProductRow({ product, onSolicitarEliminar, onEditarProducto }) {
     <article className="product-row">
       <div className="product-info">
         <h3>{product.nombre}</h3>
-        <p>Categoria: {product.categoria}</p>
-        <p>Marca: {product.marca}</p>
-        <p>Modelo: {product.modelo}</p>
-        <p>Descripción: {product.descripcion}</p>
-        <p>Precio: {product.precio}</p>
-        <p>Stock: {product.stock}</p>
+        <p>
+          <strong>Categoría:</strong> {product.categoria}
+        </p>
+        <p>
+          <strong>Marca:</strong> {product.marca}
+        </p>
+        <p>
+          <strong>Modelo:</strong> {product.modelo}
+        </p>
+        <p>
+          <strong>Descripción:</strong> {product.descripcion}
+        </p>
+        <p>
+          <strong>Precio:</strong> {product.precio}
+        </p>
+        <p>
+          <strong>Stock:</strong> {product.stock}
+        </p>
       </div>
 
-      <Trash2
-        className="trash-icon"
-        onClick={() => onSolicitarEliminar(product.id)}
-        size={20}
-      />
+      <div className="product-actions">
+        <Pencil
+          className="pencil-icon"
+          onClick={() => onEditarProducto(product)}
+          size={18}
+        />
 
-      <Pencil
-        className="pencil-icon"
-        onClick={() => onEditarProducto(product)}
-        size={20}
-      />
+        <Trash2
+          className="trash-icon"
+          onClick={() => onSolicitarEliminar(product.id)}
+          size={18}
+        />
+      </div>
     </article>
   );
 }

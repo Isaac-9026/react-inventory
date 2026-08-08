@@ -1,22 +1,101 @@
 .product-row {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  width: 100%;
+
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 1rem 1.25rem;
+
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+
+  color: #fafafa;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.product-row:hover {
+  background: #111113;
+  border-color: #3f3f46;
 }
 
 .product-info {
+  min-width: 0;
   flex: 1;
 }
 
-.product-info p {
-  margin: 0.3rem 0;
+.product-info h3 {
+  margin-bottom: 0.6rem;
+
+  color: #fafafa;
+
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.trash-icon, .pencil-icon {
-  width: 20px;
-  height: 20px;
-  margin-left: 1rem;
+.product-info p {
+  margin: 0.25rem 0;
+
+  color: #a1a1aa;
+
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.product-info p strong {
+  color: #d4d4d8;
+  font-weight: 500;
+}
+
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  flex-shrink: 0;
+}
+
+.product-actions svg {
+  width: 18px;
+  height: 18px;
+
   cursor: pointer;
+
+  color: #71717a;
+
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.product-actions svg:hover {
+  transform: scale(1.08);
+}
+
+.product-actions .pencil-icon:hover {
+  color: #fafafa;
+}
+
+.product-actions .trash-icon:hover {
+  color: #ef4444;
+}
+
+@media (max-width: 640px) {
+  .product-row {
+    padding: 1rem;
+  }
+
+  .product-actions {
+    gap: 0.35rem;
+  }
+
+  .product-actions svg {
+    width: 17px;
+    height: 17px;
+  }
 }
