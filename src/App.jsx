@@ -6,7 +6,6 @@ import ProductForm from "./components/ProductForm/ProductForm";
 import useProducts from "./hooks/useProducts";
 import useNotification from "./hooks/useNotification";
 import ConfirmDialog from "./components/ConfirmDialog/ConfirmDialog";
-
 function App() {
   const {
     products,
@@ -22,12 +21,18 @@ function App() {
   const { success, error: notifyError } = useNotification();
 
   const [search, setSearch] = useState("");
+
   const [productoAEliminar, setProductoAEliminar] = useState(null);
+
   const searchTerm = search.toLowerCase().trim();
 
+  const isLoading = loadingAction === "loading";
+
   const isSaving = loadingAction === "saving";
+
   const isDeleting = loadingAction === "deleting";
 
+  const hasSearch = searchTerm !== "";
   useEffect(() => {
     if (error) {
       notifyError("No se pudieron cargar los productos");
@@ -43,13 +48,11 @@ function App() {
     ]
       .join(" ")
       .toLowerCase();
-
     return searchableText.includes(searchTerm);
   });
-  
+
   const solicitarEliminar = (idProducto) => {
     const producto = products.find((product) => product.id === idProducto);
-
     setProductoAEliminar(producto);
   };
 
@@ -58,9 +61,7 @@ function App() {
 
     try {
       await eliminarProducto(productoAEliminar.id);
-
       success("Producto eliminado correctamente");
-
       setProductoAEliminar(null);
     } catch (error) {
       console.error(error);
@@ -81,6 +82,8 @@ function App() {
 
       <ProductList
         products={filteredProducts}
+        isLoading={isLoading}
+        hasSearch={hasSearch}
         onSolicitarEliminar={solicitarEliminar}
         onEditarProducto={editarProducto}
       />
