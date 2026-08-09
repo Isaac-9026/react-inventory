@@ -1,284 +1,205 @@
-# ⚛️ React Inventory Journey
+# React Inventory Journey
 
-> Repaso y consolidación de conocimientos de **React** mediante el desarrollo de un sistema de inventario.
+> Aplicación de inventario desarrollada para repasar, consolidar y aplicar conocimientos fundamentales de **React** mediante la construcción de un proyecto real.
 
-<p align="left">
-  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React">
-  <img src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" alt="Vite">
-  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/CSS-Modules-1572B6?logo=css3&logoColor=white" alt="CSS Modules">
-  <img src="https://img.shields.io/badge/Status-In%20Progress-orange" alt="Status">
-</p>
+Este proyecto nació como una práctica de React y evolucionó progresivamente hasta convertirse en una aplicación funcional para la gestión de productos.
 
-Este repositorio documenta mi proceso de **repaso y profundización en React** construyendo una aplicación real de gestión de inventario.
-
-El propósito del proyecto no es únicamente desarrollar una aplicación funcional, sino **reforzar los fundamentos de React**, comprender cómo funciona internamente y aplicar buenas prácticas de arquitectura, diseño de componentes y flujo de datos en un proyecto que evoluciona Sprint a Sprint.
-
-Cada funcionalidad implementada representa un concepto repasado y aplicado en un caso de uso real.
+La idea principal fue **repasar React construyendo**, aplicando cada concepto dentro de una funcionalidad real en lugar de estudiarlo únicamente de forma teórica.
 
 ---
 
-# 🎯 Objetivo
+## 🎯 Objetivo
 
-Reforzar y consolidar conocimientos de React desarrollando una aplicación de inventario de forma incremental.
+El objetivo del proyecto es consolidar los fundamentos de React mediante una aplicación que permita:
 
-Durante el desarrollo del proyecto se busca:
-
-- Comprender el funcionamiento interno de React.
-- Diseñar componentes reutilizables y desacoplados.
-- Entender el flujo de datos entre componentes.
-- Gestionar correctamente el estado de la aplicación.
-- Aplicar principios de arquitectura y buenas prácticas.
-- Escribir código limpio, mantenible y escalable.
-- Evolucionar progresivamente el proyecto hacia tecnologías como TypeScript y Next.js.
-
----
-
-# ✨ Características actuales
-
-- 📦 Catálogo de productos.
-- 🔍 Búsqueda dinámica de productos.
-- 🧩 Arquitectura basada en componentes reutilizables.
-- 🔄 Flujo de datos mediante Props.
-- ⚡ Gestión del estado con `useState`.
-- 📈 Desarrollo incremental mediante Sprints.
+* Comprender el funcionamiento del renderizado y re-renderizado.
+* Gestionar correctamente el estado.
+* Entender el flujo de datos entre componentes.
+* Crear componentes reutilizables.
+* Trabajar con formularios controlados.
+* Implementar operaciones asíncronas.
+* Utilizar Custom Hooks.
+* Separar responsabilidades.
+* Implementar un CRUD completo.
+* Manejar errores y estados de carga.
+* Aplicar buenas prácticas de organización y mantenimiento.
 
 ---
 
-# 🗺️ Ruta de aprendizaje
+## ✨ Funcionalidades
 
-## 🟢 Fundamentos
+Actualmente la aplicación permite:
 
-- [x] JSX
-- [x] Componentes
-- [x] Props
-- [x] Renderizado
-- [x] Re-renderizado
-- [x] Listas y Keys
-- [x] Eventos
-- [x] Renderizado condicional
-- [x] Principio de Responsabilidad Única (SRP)
-
----
-
-## 🟡 Estado
-
-- [x] `useState`
-- [x] Variables locales vs Estado
-- [x] Actualizaciones de estado
-- [x] Re-renderizados por cambios de estado
-- [x] Batching de actualizaciones
-- [x] Lifting State Up
+* Visualizar productos.
+* Buscar productos por nombre, marca, categoría y modelo.
+* Registrar nuevos productos.
+* Editar productos existentes.
+* Eliminar productos.
+* Confirmar acciones de eliminación.
+* Validar los datos del formulario.
+* Mostrar notificaciones de éxito y error.
+* Mostrar estados de carga según la operación.
+* Manejar errores de las operaciones.
+* Persistir información mediante Supabase.
+* Utilizar una interfaz con tema oscuro.
 
 ---
 
-## 🔵 Formularios
+## 🧠 Conceptos de React aplicados
 
-- [ ] Formularios controlados
-- [ ] Validaciones
-- [ ] Manejo de errores
+Durante el desarrollo se repasaron y aplicaron los principales fundamentos de React:
 
----
+### Componentes y renderizado
 
-## 🟣 Navegación
+* JSX.
+* Componentes funcionales.
+* Props.
+* Renderizado condicional.
+* Listas y Keys.
+* Eventos.
+* Re-renderizado.
+* `StrictMode`.
+* Flujo de renderizado.
 
-- [ ] React Router
-- [ ] Layouts
-- [ ] Rutas protegidas
+### Estado
 
----
+* `useState`.
+* Estado vs variables locales.
+* Actualizaciones funcionales.
+* Batching.
+* Lifting State Up.
+* Inmutabilidad del estado.
+* Estado compartido entre componentes.
 
-## 🟠 Gestión de estado
+### Efectos y operaciones asíncronas
 
-- [ ] Context API
-- [ ] Custom Hooks
-
----
-
-## 🔴 Persistencia
-
-- [ ] LocalStorage
-- [ ] Consumo de APIs
-- [ ] Estados de carga
-- [ ] Manejo de errores
-- [ ] CRUD completo
-
----
-
-## 🟤 Optimización
-
-- [ ] React.memo
-- [ ] useMemo
-- [ ] useCallback
-- [ ] Lazy Loading
-- [ ] Code Splitting
-
----
-
-## ⚫ Evolución del proyecto
-
-- [ ] Migración a TypeScript
-- [ ] Migración a Next.js
-
----
-
-# 📅 Roadmap
-
-## Sprint 1 · Arquitectura inicial
-
-- [x] Configuración del proyecto.
-- [x] Organización inicial.
-- [x] Catálogo de productos.
-- [x] Componentes `ProductList`.
-- [x] Componentes `ProductRow`.
-
----
-
-## Sprint 2 · Comprendiendo el renderizado
-
-- [x] Renderizados.
-- [x] `StrictMode`.
-- [x] Flujo de render.
-- [x] Árbol de componentes.
-
----
-
-## Sprint 3 · Comprendiendo el estado
-
-- [x] `useState`.
-- [x] Estado vs Variables locales.
-- [x] Re-renderizados por cambios de estado.
-- [x] Actualizaciones funcionales.
-- [x] Batching.
-
----
-
-## Sprint 4 · Búsqueda de productos
-
-- [x] Componente `SearchBar`.
-- [x] Filtrado de productos.
-- [x] Estado compartido.
-- [x] Comunicación entre componentes.
-
----
-
-## Próximos Sprints
-
-### Gestión de productos
-
-- [ ] Crear productos.
-- [ ] Editar productos.
-- [ ] Eliminar productos.
+* `useEffect`.
+* Peticiones asíncronas.
+* `async/await`.
+* `try/catch/finally`.
+* Estados de carga.
+* Manejo de errores.
 
 ### Formularios
 
-- [ ] Formularios controlados.
-- [ ] Validaciones.
+* Formularios controlados.
+* Estado de formularios.
+* Actualización de múltiples campos.
+* Validación.
+* Transformación de datos.
 
-### Navegación
+### Custom Hooks
 
-- [ ] React Router.
-
-### Gestión de estado
-
-- [ ] Context API.
-- [ ] Custom Hooks.
-
-### Persistencia
-
-- [ ] LocalStorage.
-- [ ] Consumo de APIs.
-
-### Optimización
-
-- [ ] React.memo.
-- [ ] useMemo.
-- [ ] useCallback.
-
-### Evolución
-
-- [ ] Migración a TypeScript.
-- [ ] Migración a Next.js.
+* Creación de `useProducts`.
+* Creación de `useNotification`.
+* Separación de lógica de estado.
+* Reutilización de lógica.
 
 ---
 
-# 🏗️ Arquitectura inicial
+## 🏗️ Arquitectura
+
+La aplicación separa las responsabilidades principales en diferentes capas:
 
 ```text
 src/
 │
-├── assets/
-│
 ├── components/
+│   ├── ConfirmDialog/
+│   ├── ProductForm/
 │   ├── ProductList/
 │   ├── ProductRow/
 │   └── SearchBar/
 │
-├── data/
-│   └── products.js
+├── hooks/
+│   ├── useNotification.js
+│   └── useProducts.js
+│
+├── services/
+│   └── productService.js
+│
+├── utils/
+│   ├── productMapper.js
+│   └── productValidation.js
 │
 ├── App.jsx
-├── main.jsx
-└── index.css
+├── App.css
+├── index.css
+└── main.jsx
 ```
 
-> La estructura evolucionará conforme el proyecto incorpore nuevas funcionalidades y aumente su complejidad.
+### Responsabilidades
+
+| Capa         | Responsabilidad                       |
+| ------------ | ------------------------------------- |
+| `components` | Interfaz y presentación               |
+| `hooks`      | Lógica reutilizable y estado          |
+| `services`   | Comunicación con la API/Base de datos |
+| `utils`      | Validación y transformación de datos  |
+| `App`        | Coordinación general de la aplicación |
+
+Esta separación permite evitar que un único componente concentre toda la lógica del proyecto.
 
 ---
 
-# 🧠 Conceptos repasados
+## 🔄 Flujo principal
 
-Durante el desarrollo del proyecto se revisan y aplican conceptos fundamentales de React:
+```text
+                 App
+                  │
+        ┌─────────┼─────────┐
+        │         │         │
+   ProductForm  SearchBar  ProductList
+                              │
+                              ▼
+                         ProductRow
 
-- JSX
-- Componentes
-- Props
-- Estado (`useState`)
-- Renderizado
-- Re-renderizado
-- Reconciliation
-- Batching
-- Eventos
-- Renderizado condicional
-- Listas y Keys
-- Lifting State Up
-- Flujo de datos unidireccional
-- Arquitectura de componentes
+                  │
+                  ▼
+             useProducts
+                  │
+                  ▼
+          productService
+                  │
+                  ▼
+              Supabase
+```
 
----
-
-# 🏛️ Principios aplicados
-
-El proyecto busca aplicar principios utilizados en aplicaciones profesionales:
-
-- Componentes reutilizables.
-- Principio de Responsabilidad Única (SRP).
-- Composición de componentes.
-- Flujo de datos unidireccional.
-- Inmutabilidad del estado.
-- Separación de responsabilidades.
-- Código limpio.
-- Arquitectura escalable.
+Las acciones y datos se comunican mediante Props, mientras que `useProducts` centraliza la lógica relacionada con los productos.
 
 ---
 
-# 🛠️ Tecnologías
+## 🏛️ Principios aplicados
 
-## Actualmente
+El proyecto busca mantener una arquitectura sencilla pero organizada, aplicando:
 
-- React
-- Vite
-- JavaScript (ES6+)
-- CSS Modules
+* **Responsabilidad única (SRP).**
+* Separación de responsabilidades.
+* Componentes reutilizables.
+* Flujo de datos unidireccional.
+* Inmutabilidad del estado.
+* Composición de componentes.
+* Separación entre UI y lógica.
+* Separación entre lógica y acceso a datos.
+* Reutilización mediante Custom Hooks.
 
-## Próximamente
-
-- TypeScript
-- Next.js
+La intención no es utilizar patrones complejos innecesariamente, sino introducirlos cuando existe una necesidad real dentro de la aplicación.
 
 ---
 
-# 🚀 Instalación
+## 🛠️ Tecnologías
+
+* **React**
+* **Vite**
+* **JavaScript ES6+**
+* **CSS**
+* **Supabase**
+* **Sonner** — notificaciones.
+* **Lucide React** — iconos.
+
+---
+
+## 🚀 Instalación
 
 Clona el repositorio:
 
@@ -306,36 +227,27 @@ npm run dev
 
 ---
 
-# 📜 Scripts disponibles
+## Scripts
 
-| Script | Descripción |
-|----------|-------------|
-| `npm run dev` | Inicia el servidor de desarrollo. |
-| `npm run build` | Genera la versión de producción. |
-| `npm run preview` | Previsualiza la aplicación compilada. |
-
----
-
-# 📚 Filosofía del repositorio
-
-Este repositorio funciona como una **bitácora de repaso y consolidación de React**.
-
-Cada Sprint incorpora nuevos conceptos que son aplicados inmediatamente dentro de una aplicación real, permitiendo comprender no solo **qué hace React**, sino también **por qué funciona de esa manera**.
-
-El enfoque del proyecto prioriza la comprensión de los fundamentos antes que la incorporación de librerías o herramientas adicionales, construyendo una base sólida para desarrollar aplicaciones mantenibles y escalables.
-
-A medida que avance el proyecto, se incorporarán nuevas funcionalidades y se migrará progresivamente hacia **TypeScript** y **Next.js**, manteniendo una arquitectura limpia y preparada para crecer.
+| Comando           | Descripción                                |
+| ----------------- | ------------------------------------------ |
+| `npm run dev`     | Inicia el servidor de desarrollo.          |
+| `npm run build`   | Genera la compilación de producción.       |
+| `npm run preview` | Previsualiza la compilación de producción. |
 
 ---
 
-# 🚧 Estado del proyecto
+## 📌 Estado del proyecto
 
-Proyecto en desarrollo.
+**Etapa práctica de React completada.**
 
-El repositorio evoluciona Sprint a Sprint, incorporando nuevos conceptos de React y funcionalidades que permiten reforzar los conocimientos adquiridos mediante la práctica.
+La aplicación cuenta actualmente con un CRUD funcional, persistencia de datos, búsqueda, formularios controlados, validaciones, Custom Hooks, manejo de errores, estados de carga, notificaciones y confirmación de acciones.
+
+El proyecto cumple su objetivo principal: **utilizar una aplicación real como medio para repasar y consolidar los fundamentos de React**.
 
 ---
 
-# 👨‍💻 Autor
+## 👨‍💻 Autor
 
-Desarrollado como parte de un proceso de **repaso y profundización en React**, con el objetivo de consolidar conocimientos mediante la construcción de una aplicación real, aplicando principios de arquitectura, diseño de componentes y buenas prácticas de desarrollo.
+Proyecto desarrollado como parte de un proceso personal de **repaso y consolidación de React**, utilizando la práctica y la construcción de una aplicación real como método principal de aprendizaje.
+
