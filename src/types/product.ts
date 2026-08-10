@@ -18,3 +18,5 @@ export interface ProductFormData {
   precio: string;
   stock: string;
 }
+
+export type CreateProductData = Omit<Product, "id">;
