@@ -8,3 +8,13 @@ export interface Product {
   precio: number;
   stock: number;
 }
+
+export interface ProductFormData {
+  nombre: string;
+  marca: string;
+  categoria: string;
+  modelo: string;
+  descripcion: string;
+  precio: string;
+  stock: string;
+}

@@ -1,4 +1,7 @@
-export function validarProducto(producto) {
+import type { ProductFormData } from "../types/product";
+
+
+export function validarProducto(producto: ProductFormData): string | null {
   if (!producto.nombre.trim()) {
     return "El nombre es obligatorio";
   }
