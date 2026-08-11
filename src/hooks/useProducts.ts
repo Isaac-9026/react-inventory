@@ -1,13 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import productService from "../services/productService";
+import type { CreateProductData, Product } from "../types/product";
+
+type LoadingAction = "loading" | "saving" | "deleting" | null;
 
 function useProducts() {
-  const [productoEnEdicion, setProductoEnEdicion] = useState(null);
-  const [loadingAction, setLoadingAction] = useState("loading");
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [productoEnEdicion, setProductoEnEdicion] = useState<Product | null>(
+    null,
+  );
 
-  const agregarProducto = async (nuevoProducto) => {
+  const [loadingAction, setLoadingAction] = useState<LoadingAction>("loading");
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const [error, setError] = useState<unknown>(null);
+
+  const agregarProducto = async (nuevoProducto: CreateProductData) => {
     setLoadingAction("saving");
 
     try {
@@ -43,7 +51,7 @@ function useProducts() {
     }
   };
 
-  const eliminarProducto = async (idProducto) => {
+  const eliminarProducto = async (idProducto: string) => {
     setLoadingAction("deleting");
 
     try {
@@ -64,11 +72,11 @@ function useProducts() {
     cargarProductos().catch(() => {});
   }, []);
 
-  const editarProducto = (producto) => {
+  const editarProducto = (producto: Product) => {
     setProductoEnEdicion(producto);
   };
 
-  const actualizarProducto = async (producto) => {
+  const actualizarProducto = async (producto: Product) => {
     setLoadingAction("saving");
 
     try {
