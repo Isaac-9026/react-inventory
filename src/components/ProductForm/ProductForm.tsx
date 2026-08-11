@@ -1,10 +1,16 @@
 import "./ProductForm.css";
 import { useEffect, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
+import type {
+  CreateProductData,
+  Product,
+  ProductFormData,
+} from "../../types/product";
 import { validarProducto } from "../../utils/productValidation";
 import { mapProductToDatabase } from "../../utils/productMapper";
 import useNotification from "../../hooks/useNotification";
 
-const INITIAL_FORM = {
+const INITIAL_FORM: ProductFormData = {
   nombre: "",
   marca: "",
   categoria: "",
@@ -14,17 +20,26 @@ const INITIAL_FORM = {
   stock: "",
 };
 
+interface ProductFormProps {
+  onAgregarProducto: (producto: CreateProductData) => Promise<Product>;
+  productEdicion: Product | null;
+  onEditarProducto: (producto: Product) => Promise<Product>;
+  isSaving: boolean;
+}
+
 function ProductForm({
   onAgregarProducto,
   productEdicion,
   onEditarProducto,
   isSaving,
-}) {
-  const [formData, setFormData] = useState(INITIAL_FORM);
+}: ProductFormProps) {
+  const [formData, setFormData] = useState<ProductFormData>(INITIAL_FORM);
 
   const { success, error: notifyError } = useNotification();
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) => {
     const { id, value } = e.target;
 
     setFormData((prev) => ({
@@ -35,13 +50,21 @@ function ProductForm({
 
   useEffect(() => {
     if (productEdicion) {
-      setFormData(productEdicion);
+      setFormData({
+        nombre: productEdicion.nombre,
+        marca: productEdicion.marca,
+        categoria: productEdicion.categoria,
+        modelo: productEdicion.modelo,
+        descripcion: productEdicion.descripcion,
+        precio: String(productEdicion.precio),
+        stock: String(productEdicion.stock),
+      });
     } else {
       setFormData(INITIAL_FORM);
     }
   }, [productEdicion]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationError = validarProducto(formData);
@@ -55,10 +78,15 @@ function ProductForm({
 
     try {
       if (productEdicion) {
-        await onEditarProducto(product);
+        await onEditarProducto({
+          ...product,
+          id: productEdicion.id,
+        });
+
         success("Producto actualizado correctamente");
       } else {
         await onAgregarProducto(product);
+
         success("Producto registrado correctamente");
       }
 
