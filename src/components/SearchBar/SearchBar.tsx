@@ -1,9 +1,15 @@
-import "./SearchBar.css"
+import "./SearchBar.css";
 
-function SearchBar({ value, onChange }) {
+interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="search-bar">
       <label htmlFor="buscar">Buscar producto:</label>
+
       <input
         type="text"
         id="buscar"

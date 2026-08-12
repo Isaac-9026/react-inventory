@@ -1,6 +1,21 @@
 import "./ConfirmDialog.css";
+import type { Product } from "../../types/product";
 
-function ConfirmDialog({ open, product, isDeleting, onCancel, onConfirm }) {
+interface ConfirmDialogProps {
+  open: boolean;
+  product: Product | null;
+  isDeleting: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+function ConfirmDialog({
+  open,
+  product,
+  isDeleting,
+  onCancel,
+  onConfirm,
+}: ConfirmDialogProps) {
   if (!open || !product) {
     return null;
   }
@@ -28,5 +43,3 @@ function ConfirmDialog({ open, product, isDeleting, onCancel, onConfirm }) {
     </div>
   );
 }
-
-export default ConfirmDialog;
