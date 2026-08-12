@@ -1,26 +1,43 @@
 import "./ProductRow.css";
 import { Trash2, Pencil } from "lucide-react";
+import type { Product } from "../../types/product";
 
-function ProductRow({ product, onSolicitarEliminar, onEditarProducto }) {
+interface ProductRowProps {
+  product: Product;
+  onSolicitarEliminar: (idProducto: string) => void;
+  onEditarProducto: (producto: Product) => void;
+}
+
+function ProductRow({
+  product,
+  onSolicitarEliminar,
+  onEditarProducto,
+}: ProductRowProps) {
   return (
     <article className="product-row">
       <div className="product-info">
         <h3>{product.nombre}</h3>
+
         <p>
           <strong>Categoría:</strong> {product.categoria}
         </p>
+
         <p>
           <strong>Marca:</strong> {product.marca}
         </p>
+
         <p>
           <strong>Modelo:</strong> {product.modelo}
         </p>
+
         <p>
           <strong>Descripción:</strong> {product.descripcion}
         </p>
+
         <p>
           <strong>Precio:</strong> {product.precio}
         </p>
+
         <p>
           <strong>Stock:</strong> {product.stock}
         </p>
